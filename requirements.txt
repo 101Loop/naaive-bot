@@ -1,2 +1,3 @@
 pyTelegramBotAPI==3.7.3
 python-dotenv==0.14.0
+sentry-sdk==0.19.1

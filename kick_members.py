@@ -8,11 +8,14 @@ import datetime
 from dotenv import load_dotenv
 import telebot
 from telebot.apihelper import ApiTelegramException
+import sentry_sdk
 
 load_dotenv()
 
+sentry_sdk.init(os.getenv("SENTRY_DSN"), traces_sample_rate=1.0)
+
 # load BOT_API from env file
-bot_api = os.getenv("BOT_API")
+bot_api = os.getenv("BOT_API");
 
 # initialize bot with API KEY
 # use https://t.me/botfather to generate your own
@@ -23,6 +26,7 @@ untildate = datetime.datetime.today() + datetime.timedelta(days=1)
 
 # convert time limit to unix timestamp
 unix_untildate = untildate.strftime("%s")
+
 
 @bot.message_handler(func=lambda m: True)
 def kick_member(message):
