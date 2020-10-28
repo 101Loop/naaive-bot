@@ -15,11 +15,11 @@ load_dotenv()
 sentry_sdk.init(os.getenv("SENTRY_DSN"), traces_sample_rate=1.0)
 
 # load BOT_API from env file
-bot_api = os.getenv("BOT_API");
+token = os.getenv("BOT_TOKEN");
 
 # initialize bot with API KEY
 # use https://t.me/botfather to generate your own
-bot = telebot.TeleBot(bot_api)
+bot = telebot.TeleBot(token)
 
 # set one day time limit to unban group members
 untildate = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -38,8 +38,8 @@ def kick_member(message):
         user_id = message.from_user.id
         try:
             bot.kick_chat_member(
-                chat_id=message.chat.id,
-                user_id=message.from_user.id,
+                chat_id=chat_id,
+                user_id=user_id,
                 until_date=unix_untildate,
             )
             bot.reply_to(
