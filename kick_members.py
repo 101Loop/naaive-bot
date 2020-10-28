@@ -3,25 +3,35 @@ This is a simple script to create a telegram bot.
 This telegram bot removes group member for a day 
 if member uses words which contains `aww`
 """
-import os
 import datetime
-from dotenv import load_dotenv
-import telebot
-from telebot.apihelper import ApiTelegramException
-import sentry_sdk
+import logging
+import os
 
+import sentry_sdk
+import telebot
+from dotenv import load_dotenv
+from telebot.apihelper import ApiTelegramException
+
+logger = logging.getLogger(__name__)
+
+# initialize dot env
 load_dotenv()
 
-sentry_sdk.init(os.getenv("SENTRY_DSN"), traces_sample_rate=1.0)
+# initialize sentry
+sentry_sdk.init(
+    dsn=os.getenv("SENTRY_DSN"),
+    environment=os.getenv("SENTRY_ENV"),
+    traces_sample_rate=1.0,
+)
 
-# load BOT_API from env file
-token = os.getenv("BOT_TOKEN");
+# load BOT_TOKEN from env file
+token = os.getenv("BOT_TOKEN")
 
-# initialize bot with API KEY
+# initialize bot with API TOKEN
 # use https://t.me/botfather to generate your own
 bot = telebot.TeleBot(token)
 
-# set one day time limit to unban group members
+# i'm setting one day time limit to unban group members (update this as per need)
 untildate = datetime.datetime.today() + datetime.timedelta(days=1)
 
 # convert time limit to unix timestamp
@@ -46,8 +56,14 @@ def kick_member(message):
                 message,
                 "You've used a forbidden word, you'll be banned for a day from this group.",
             )
-        except ApiTelegramException:
-            bot.reply_to(message, "Oops, Chat Owner can use these forbidden words!")
+        except ApiTelegramException as err:
+            # check if the message which contains `aww` sent by owner
+            if "can't remove chat owner" in err.result_json.get("description"):
+                bot.reply_to(message, "Oops, Chat Owner can use these forbidden words!")
+            # log error to sentry
+            else:
+                logger.error(error)
+                raise
 
 
 bot.polling()
