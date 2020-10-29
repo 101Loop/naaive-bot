@@ -1,6 +1,6 @@
 """
 This is a simple script to create a telegram bot.
-This telegram bot removes group member for a day 
+This telegram bot removes group member for a day
 if member uses words which contains `aww`
 """
 import datetime
