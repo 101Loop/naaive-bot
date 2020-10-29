@@ -57,12 +57,18 @@ def kick_member(message):
                 "You've used a forbidden word, you'll be banned for a day from this group.",
             )
         except ApiTelegramException as err:
-            # check if the message which contains `aww` sent by owner
+            # check if the message which contains `aww` sent by group owner
             if "can't remove chat owner" in err.result_json.get("description"):
                 bot.reply_to(message, "Oops, Chat Owner can use these forbidden words!")
+            # checks if message is sent directly to bot
+            elif (
+                "chat member status can't be changed in private chats"
+                in err.result_json.get("description")
+            ):
+                bot.reply_to(message, "Sorry, This doesn't work in private chats!")
             # log error to sentry
             else:
-                logger.error(error)
+                logger.error(err)
                 raise
 
 
