@@ -46,35 +46,41 @@ def kick_member(message):
     if "aww" in (message.text).lower():
         chat_id = message.chat.id
         user_id = message.from_user.id
+        first_name = message.from_user.first_name
         try:
             bot.kick_chat_member(
                 chat_id=chat_id,
                 user_id=user_id,
                 until_date=unix_untildate,
             )
-            bot.reply_to(
-                message,
-                "You've used a forbidden word, you'll be banned for a day from this group.",
-            )
         except ApiTelegramException as err:
             # check if the message which contains `aww` sent by group owner
             if "can't remove chat owner" in err.result_json.get("description"):
-                bot.reply_to(message, "Oops, Chat Owner can use these forbidden words!")
+                bot.send_message(
+                    chat_id, "Oops, Chat Owner can use these forbidden words!"
+                )
             # check if the message which contains `aww` sent by group admin
-            if "user is an administrator of the chat" in err.result_json.get(
+            elif "user is an administrator of the chat" in err.result_json.get(
                 "description"
             ):
-                bot.reply_to(message, "Chat Admins can also use these forbidden words!")
+                bot.send_message(
+                    chat_id, "Chat Admins can also use these forbidden words!"
+                )
             # checks if message is sent directly to bot
             elif (
                 "chat member status can't be changed in private chats"
                 in err.result_json.get("description")
             ):
-                bot.reply_to(message, "Sorry, This doesn't work in private chats!")
-            # log error to sentry
+                bot.send_message(chat_id, "Sorry, This doesn't work in private chats!")
+            # otherwise log errors to sentry
             else:
                 logger.error(err)
-                raise
+                sentry_sdk.capture_exception(err)
+        else:
+            bot.send_message(
+                chat_id,
+                f"{first_name} have used a forbidden word and will be banned for a day from this group.",
+            )
 
 
 bot.polling()
