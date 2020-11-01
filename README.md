@@ -1,21 +1,21 @@
 # NaaiveBot - Simple Telegram Bot
 
-A simple telegram bot which kicks out users from a group or channel when forbidden words like `aww` are used. 
+A simple telegram bot which kicks out users from a group or channel when forbidden words like `aww` are used.
 
 # Motivation
 Just a random discussion in one of our company's group and [Himanshu Shankar](https://github.com/iamhssingh) said that create a bot which removes group members whenever they say words which contains `aww` and I thought **why not**.:wink:
 # How To Use
 - Go to https://t.me/beepstarbot and add it to your group or channel.
 - Give admin permission to the bot, so that it can remove members whenever they use words which contains `aww`.
-- Members will be removed for a day and will not be able to join using invite links in that period. 
-- Group **owners** & **admins** can add them again if they want to :joy:. 
+- Members will be removed for a day and will not be able to join using invite links in that period.
+- Group **owners** & **admins** can add them again if they want to :joy:.
 - **Group owners can use any words, they won't be removed.**
 
 # How To Deploy Your Instance Of This Bot
 You need **Python 3** and **PIP** installed for this to work
 
 - Fork this repo to your profile
-- `git clone link-to-repo.git` - Clone your copy of this repo to your local machine 
+- `git clone link-to-repo.git` - Clone your copy of this repo to your local machine
 - `cd naaive-bot` - Move to the repo folder
 - Activate virtual environment. (We're expecting that you've created virtual environment by now.)
 - Run `pip install -r requirements.txt` to  install dependencies
