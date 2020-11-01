@@ -78,8 +78,7 @@ def kick_member(message):
                 "chat member status can't be changed in private chats"
                 in err.result_json.get("description")
             ):
-                bot.send_message(
-                    chat_id, "Sorry, This doesn't work in private chats!")
+                bot.send_message(chat_id, "Sorry, This doesn't work in private chats!")
             # otherwise log errors to sentry
             else:
                 logger.error(err)
