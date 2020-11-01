@@ -55,28 +55,30 @@ def kick_member(message):
             )
         except ApiTelegramException as err:
             # check if bot has admin permissions
-            if "not enough rights to restrict" in err.result_json.get(
-                    "description"):
+            if "not enough rights to restrict" in err.result_json.get("description"):
                 bot.send_message(
                     chat_id,
                     "Forbidden Word used but I don't have enough permissions to kick members. \
                     Please make me an admin.",
                 )
             # check if message which contains `aww` sent by group owner
-            elif "can't remove chat owner" in err.result_json.get(
-                    "description"):
+            elif "can't remove chat owner" in err.result_json.get("description"):
                 bot.send_message(
-                    chat_id, "Oops, Chat Owner can use these forbidden words!")
+                    chat_id, "Oops, Chat Owner can use these forbidden words!"
+                )
             # check if the message which contains `aww` sent by group admin
             elif "user is an administrator of the chat" in err.result_json.get(
-                    "description"):
+                "description"
+            ):
                 bot.send_message(
-                    chat_id, "Chat Admins can also use these forbidden words!")
+                    chat_id, "Chat Admins can also use these forbidden words!"
+                )
             # checks if message is sent directly to bot
-            elif ("chat member status can't be changed in private chats" in
-                  err.result_json.get("description")):
-                bot.send_message(chat_id,
-                                 "Sorry, This doesn't work in private chats!")
+            elif (
+                "chat member status can't be changed in private chats"
+                in err.result_json.get("description")
+            ):
+                bot.send_message(chat_id, "Sorry, This doesn't work in private chats!")
             # otherwise log errors to sentry
             else:
                 logger.error(err)
