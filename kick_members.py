@@ -1,7 +1,7 @@
 """
 This is a simple script to create a telegram bot.
-This telegram bot removes group member for a day 
-if member uses words which contains `aww`
+This telegram bot removes group member for a day
+if member uses words which contains `aww`.
 """
 import datetime
 import logging
@@ -43,7 +43,7 @@ def kick_member(message):
     """
     This methods kicks out members whose messages contains `aww`
     """
-    if "aww" in (message.text).lower():
+    if "aww" in message.text.lower():
         chat_id = message.chat.id
         user_id = message.from_user.id
         first_name = message.from_user.first_name
@@ -54,8 +54,15 @@ def kick_member(message):
                 until_date=unix_untildate,
             )
         except ApiTelegramException as err:
-            # check if the message which contains `aww` sent by group owner
-            if "can't remove chat owner" in err.result_json.get("description"):
+            # check if bot has admin permissions
+            if "not enough rights to restrict" in err.result_json.get("description"):
+                bot.send_message(
+                    chat_id,
+                    "Forbidden Word used but I don't have enough permissions to kick members. \
+                    Please make me an admin.",
+                )
+            # check if message which contains `aww` sent by group owner
+            elif "can't remove chat owner" in err.result_json.get("description"):
                 bot.send_message(
                     chat_id, "Oops, Chat Owner can use these forbidden words!"
                 )
@@ -79,7 +86,7 @@ def kick_member(message):
         else:
             bot.send_message(
                 chat_id,
-                f"{first_name} have used a forbidden word and will be banned for a day from this group.",
+                f"{first_name} have used a forbidden word and will be banned for a day from this group.",  # noqa
             )
 
 
