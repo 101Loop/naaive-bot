@@ -1,5 +1,8 @@
 # NaaiveBot - Simple Telegram Bot
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/101Loop/naaive-bot/main.svg)](https://results.pre-commit.ci/latest/github/101Loop/naaive-bot/main)
+
 A simple telegram bot which kicks out users from a group or channel when forbidden words like `aww` are used.
 
 # Motivation
