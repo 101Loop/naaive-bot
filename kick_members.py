@@ -64,16 +64,12 @@ def kick_member(message):
             )
         # check if message which contains `aww` sent by group owner
         elif "can't remove chat owner" in err.result_json.get("description"):
-            bot.send_message(
-                chat_id, "Oops, Chat Owner can use these forbidden words!"
-            )
+            bot.send_message(chat_id, "Oops, Chat Owner can use these forbidden words!")
         # check if the message which contains `aww` sent by group admin
         elif "user is an administrator of the chat" in err.result_json.get(
             "description"
         ):
-            bot.send_message(
-                chat_id, "Chat Admins can also use these forbidden words!"
-            )
+            bot.send_message(chat_id, "Chat Admins can also use these forbidden words!")
         # checks if message is sent directly to bot
         elif (
             "chat member status can't be changed in private chats"
