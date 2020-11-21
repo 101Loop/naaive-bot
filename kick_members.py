@@ -10,6 +10,7 @@ import os
 import sentry_sdk
 import telebot
 from dotenv import load_dotenv
+from sentry_sdk.integrations.logging import LoggingIntegration
 from telebot.apihelper import ApiTelegramException
 
 logger = logging.getLogger(__name__)
@@ -17,11 +18,18 @@ logger = logging.getLogger(__name__)
 # initialize dot env
 load_dotenv()
 
+sentry_logging = LoggingIntegration(
+    level=logging.INFO,  # Capture info and above as breadcrumbs
+    event_level=logging.ERROR,  # Send errors as events
+)
+
 # initialize sentry
 sentry_sdk.init(
     dsn=os.getenv("SENTRY_DSN"),
     environment=os.getenv("SENTRY_ENV"),
+    release=os.getenv("SENTRY_RELEASE"),
     traces_sample_rate=1.0,
+    integrations=[sentry_logging],
 )
 
 # load BOT_TOKEN from env file
