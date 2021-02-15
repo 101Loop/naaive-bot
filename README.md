@@ -8,7 +8,7 @@ forbidden words like `aww` are used.
 
 # Motivation
 
-Just a random discussion in one of our company's group and
+Just a random discussion in one of our community group and
 [Himanshu Shankar](https://github.com/iamhssingh) said that create a bot which
 removes group members whenever they say words which contains `aww` and I thought
 **why not**.:wink:
