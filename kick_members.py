@@ -64,7 +64,7 @@ def kick_member(message):
         )
     except ApiTelegramException as err:
         # check if bot has admin permissions
-        if "not enough rights to restrict" in err.result_json.get("description"):
+        if "CHAT_ADMIN_REQUIRED" in err.result_json.get("description"):
             bot.send_message(
                 chat_id,
                 "Forbidden Word used but I don't have enough permissions to kick members. \
@@ -80,7 +80,7 @@ def kick_member(message):
             bot.send_message(chat_id, "Chat Admins can also use these forbidden words!")
         # checks if message is sent directly to bot
         elif (
-            "chat member status can't be changed in private chats"
+            "can't ban members in private chats"
             in err.result_json.get("description")
         ):
             bot.send_message(chat_id, "Sorry, This doesn't work in private chats!")
