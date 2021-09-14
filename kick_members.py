@@ -79,10 +79,7 @@ def kick_member(message):
         ):
             bot.send_message(chat_id, "Chat Admins can also use these forbidden words!")
         # checks if message is sent directly to bot
-        elif (
-            "can't ban members in private chats"
-            in err.result_json.get("description")
-        ):
+        elif "can't ban members in private chats" in err.result_json.get("description"):
             bot.send_message(chat_id, "Sorry, This doesn't work in private chats!")
         # otherwise log errors to sentry
         else:
