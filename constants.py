@@ -1,3 +1,6 @@
+"""Constants used in the project."""
+
+
 class ErrorMessages:
     """Error messages from Telegram API"""
 
