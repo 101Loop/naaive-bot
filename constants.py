@@ -1,4 +1,3 @@
-
 class ErrorMessages:
     CHAT_ADMIN_REQUIRED: str = "CHAT_ADMIN_REQUIRED"
     CAN_NOT_REMOVE_CHAT_OWNER: str = "can't remove chat owner"
@@ -8,5 +7,5 @@ class ErrorMessages:
 
 
 class BotPermissions:
-    CREATOR: str = 'creator'
-    ADMINISTRATOR: str = 'administrator'
+    CREATOR: str = "creator"
+    ADMINISTRATOR: str = "administrator"

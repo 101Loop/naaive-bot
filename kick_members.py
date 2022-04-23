@@ -3,7 +3,6 @@ This is a simple script to create a telegram bot.
 This telegram bot removes group member for a day
 if member uses words which contains `aww`.
 """
-
 import datetime
 import logging
 import os
@@ -15,7 +14,8 @@ from dotenv import load_dotenv
 from sentry_sdk.integrations.logging import LoggingIntegration
 from telebot.apihelper import ApiTelegramException
 
-from constants import ErrorMessages, BotPermissions
+from constants import BotPermissions
+from constants import ErrorMessages
 
 logger = logging.getLogger(__name__)
 
@@ -104,7 +104,10 @@ def handle_chat_admin_required(chat_id, first_name, user_id):
 
 
 def send_user_is_admin(chat_id, first_name):
-    bot.send_message(chat_id, f"{first_name} is an admin and admins are allowed to say forbidden words!")
+    bot.send_message(
+        chat_id,
+        f"{first_name} is an admin and admins are allowed to say forbidden words!",
+    )
 
 
 def send_user_is_owner(chat_id, first_name):
