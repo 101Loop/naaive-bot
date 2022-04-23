@@ -1,4 +1,5 @@
 class ErrorMessages:
+    """Error messages from Telegram API"""
     CHAT_ADMIN_REQUIRED: str = "CHAT_ADMIN_REQUIRED"
     CAN_NOT_REMOVE_CHAT_OWNER: str = "can't remove chat owner"
     USER_IS_AN_ADMIN: str = "user is an administrator of the chat"
@@ -7,5 +8,6 @@ class ErrorMessages:
 
 
 class BotPermissions:
+    """Bot permission names from Telegram API"""
     CREATOR: str = "creator"
     ADMINISTRATOR: str = "administrator"

@@ -50,7 +50,7 @@ until_date: datetime = datetime.datetime.now() + datetime.timedelta(days=1)
 @bot.message_handler(func=lambda m: True)
 def kick_member(message: [telebot.types.Message]):
     """
-    This methods kicks out members whose messages contains `aww`
+    This method kicks out members whose messages contain `aww`
     """
     if "aww" not in message.text.lower():
         return
@@ -91,6 +91,7 @@ def kick_member(message: [telebot.types.Message]):
 
 
 def handle_chat_admin_required(chat_id, first_name, user_id):
+    """Method to handle chat admin required error"""
     admins: List[telebot.types.ChatMember] = bot.get_chat_administrators(chat_id)
     if any(admin.user.is_bot for admin in admins):
         # somehow we're getting wrong error message even if bot has admin permissions
@@ -104,6 +105,7 @@ def handle_chat_admin_required(chat_id, first_name, user_id):
 
 
 def send_user_is_admin(chat_id, first_name):
+    """Method to send user is admin message"""
     bot.send_message(
         chat_id,
         f"{first_name} is an admin and admins are allowed to say forbidden words!",
@@ -111,6 +113,7 @@ def send_user_is_admin(chat_id, first_name):
 
 
 def send_user_is_owner(chat_id, first_name):
+    """Method to send user is owner message"""
     bot.send_message(
         chat_id=chat_id,
         text=f"Sorry folks, {first_name} is owner here . I can't do anything.",
@@ -118,6 +121,7 @@ def send_user_is_owner(chat_id, first_name):
 
 
 def send_not_enough_permissions(chat_id):
+    """Method to send not enough permissions message"""
     bot.send_message(
         chat_id,
         "Forbidden Word used but I don't have enough permissions to kick members. "
